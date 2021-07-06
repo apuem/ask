@@ -60,12 +60,21 @@
             }
 
             .answer-card {
-                border: 1px solid #eaeaea;
+                border: 2px solid #D2D2D2;
+                border-radius: 48px;    
+                box-shadow: none;
+                -webkit-transition-duration: 500ms; /* Safari */
+                transition-duration: 500ms;
+                transition: 500ms;
             }
 
             .answer-card:hover {
-                color: #0070f3;
-                border-color: #0070f3;
+                border: 2px solid #D2D2D2;
+                background-color: #ffffff;   
+                box-shadow: 1px 6px 20px 3px rgba(0, 0, 0, 0.09);
+                -webkit-transition-duration: 500ms; /* Safari */
+                transition-duration: 500ms;
+                transition: 500ms;
             }
 
             .navbar-container {
@@ -101,9 +110,9 @@
                         <p class="my-auto p-3 nav-item">
                             <span class="hide-mobile">Ask me about</span>
                             <select name="select" class="text-decoration-underline">
-                                <option value="value1">Value 1</option>
-                                <option value="value2" selected>Value 2</option>
-                                <option value="value3">Value 3</option>
+                                <option value="value1" selected>everything</option>
+                                <option value="value2">cars</option>
+                                <option value="value3">animals</option>
                             </select>
                         </p>
                     </li>
@@ -112,10 +121,28 @@
             </nav>
         </div>
         <div class="container">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center" style="margin-top: 25vh;">
                 <div class="col-10 col-sm-12">
                     <p class="text-sm-start text-center display-3 fw-bold">What is the highest Mountain on earth?</p>
                     <p class="text-sm-start text-center fs-3 fw-bold"><a class="text-end" style="text-decoration: none; color: rgb(172, 172, 172);" href="#">#19380</a></p>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row justify-content-center mt-5">
+                <div class="col-10 col-sm-12">
+                    <div class="answer-card mt-3">
+                        <p class="display-6 m-5">Mount Everest</p>
+                    </div>
+                    <div class="answer-card mt-3">
+                        <p class="display-6 m-5">Mount Everest</p>
+                    </div>
+                    <div class="answer-card mt-3">
+                        <p class="display-6 m-5">Mount Everest</p>
+                    </div>
+                    <div class="answer-card mt-3">
+                        <p class="display-6 m-5">Mount Everest</p>
+                    </div>
                 </div>
             </div>
         </div>
