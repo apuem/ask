@@ -12,10 +12,13 @@ if (params.has("category") == true) {
     loadContent();
 }
 
-function loadQuestion(_questionId) {
+function loadQuestion(questionId) {
 
 }
 
-function loadQuestion() {
-
+if (idParam != null) {
+    id = idParam
+    getQuestionbyId(id)
+} else {
+    getQuestionbyCategory(categoryParam)
 }
