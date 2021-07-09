@@ -22,3 +22,8 @@ if (idParam != null) {
 } else {
     getQuestionbyCategory(categoryParam)
 }
+
+function setInput(question, questionId, answer1, answer2, answer3, answer4) {
+    var questionText = document.getElementById("questionText");
+
+}

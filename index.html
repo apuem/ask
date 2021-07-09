@@ -24,104 +24,7 @@
         <link rel="mask-icon" href="/images/safari-pinned-tab.svg" color="#5bbad5">
         <meta name="msapplication-TileColor" content="#000000">
         <meta name="theme-color" content="#ffffff">
-        <style>
-            body {
-                font-family: "Inter", sans-serif;
-                max-width: 100%;
-                overflow-x: hidden;
-            }
-
-            .bar {
-                background: #ffffff;
-                box-shadow: 1px 6px 20px 3px rgba(0, 0, 0, 0.09);
-                border-radius: 13px;
-                font-size: 16px;
-                /* font-size: 1.03359vw; */
-                font-family: "Inter",Helvetica,Arial,sans-serif;
-                font-weight: 400;
-                letter-spacing: 0;
-                line-height: 18px;
-                letter-spacing: -.03em;
-                display: block;
-                padding: 8px 12px;
-                position: fixed;
-                top: 0;
-                left: 50%;
-                width: auto;
-                height: auto;
-                color: #1d1d1d;
-                margin: 3.33333vw 0 0;
-                z-index: 8;
-                white-space: nowrap;
-                -webkit-transform: translate3d(-50%,0,0);
-                transform: translate3d(-50%,0,0);
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-                opacity: 1;
-                -webkit-transition: opacity 1s .5s;
-                transition: opacity 1s .5s;
-            }
-
-            .poppins-font {
-                font-family: "Poppins", sans-serif;
-            }
-
-            select {
-                appearance: none;
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                border: none;
-                /* needed for Firefox: */
-                overflow: hidden;
-                text-align: center;
-                text-align-last: center;
-            }
-
-            option {
-            text-align: left;
-            /* reset to left*/
-            }
-
-            .answer-card {
-                border: 2px solid #D2D2D2;
-                border-radius: 48px;    
-                box-shadow: none;
-                -webkit-transition-duration: 500ms; /* Safari */
-                transition-duration: 500ms;
-                transition: 500ms;
-                width: 100%;
-                background-color: #ffffff;
-            }
-
-            .answer-card:hover {
-                border: 2px solid #868686;
-                -webkit-transition-duration: 500ms; /* Safari */
-                transition-duration: 500ms;
-                transition: 500ms;
-            }
-
-            .navbar-container {
-                padding-top: 10vh;
-            }
-
-            .vl {
-                border-left: 2px solid rgb(204, 204, 204);
-            }
-            
-            @media screen and (max-width: 600px) {
-            .hide-mobile {
-                visibility: hidden;
-                display: none;
-            }
-            .bar {
-                margin: 3.3333vw 0 0;
-                padding: 4px 6px;
-            }
-            }
-
-        </style>
+        <link rel="stylesheet" href="style.css">
 
         <!-- Bootstrap CSS -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
@@ -152,8 +55,8 @@
         <div class="container">
             <div class="row justify-content-center" style="margin-top: 25vh;">
                 <div class="col-10 col-sm-12">
-                    <p class="text-sm-start text-center display-3 fw-bold user-select-none">What is the highest Mountain on earth?</p>
-                    <p class="text-sm-start text-center fs-3 fw-bold"><a class="text-end" style="text-decoration: none; color: rgb(172, 172, 172);" href="#">#19380</a></p>
+                    <p id="questionText" class="text-sm-start text-center display-3 fw-bold user-select-none">What is the highest Mountain on earth?</p>
+                    <p id="questionIdText" class="text-sm-start text-center fs-3 fw-bold"><a class="text-end" style="text-decoration: none; color: rgb(172, 172, 172);" href="#">#19380</a></p>
                 </div>
             </div>
         </div>
@@ -161,16 +64,16 @@
             <div class="row justify-content-center mt-5">
                 <div class="col-10 col-sm-12">
                     <button class="answer-card mt-3 text-start" onclick="logEvent(0)">
-                        <p class="fs-3 m-5 user-select-none">Mount Everest</p>
+                        <p id="answer1Text" class="fs-3 m-5 user-select-none">Mount Everest</p>
                     </button>
                     <button class="answer-card mt-3 text-start">
-                        <p class="fs-3 m-5 user-select-none">K2</p>
+                        <p id="answer2Text" class="fs-3 m-5 user-select-none">K2</p>
                     </button>
                     <button class="answer-card mt-3 text-start">
-                        <p class="fs-3 m-5 user-select-none">Zugspitze</p>
+                        <p id="answer3Text" class="fs-3 m-5 user-select-none">Zugspitze</p>
                     </button>
                     <button class="answer-card mt-3 text-start">
-                        <p class="fs-3 m-5 user-select-none">Lhotse</p>
+                        <p id="answer4Text" class="fs-3 m-5 user-select-none">Lhotse</p>
                     </button>
                 </div>
             </div>
