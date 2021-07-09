@@ -65,7 +65,6 @@ text-align: left;
     transition-duration: 500ms;
     transition: 500ms;
     width: 100%;
-    background-color: #ffffff;
 }
 
 .answer-card:hover {
@@ -84,12 +83,34 @@ text-align: left;
 }
 
 @media screen and (max-width: 600px) {
-.hide-mobile {
-    visibility: hidden;
-    display: none;
-}
-.bar {
-    margin: 3.3333vw 0 0;
-    padding: 4px 6px;
-}
+
+    .hide-mobile {
+        visibility: hidden;
+        display: none;
+    }
+
+    .bar {
+        margin: 3.3333vw 0 0;
+        padding: 4px 6px;
+    }
+    }
+
+    #answer1 #answer2 #answer3 #answer4 {
+        -webkit-transition-duration: 500ms; /* Safari */
+        transition-duration: 500ms;
+        transition: 500ms;
+    }
+
+
+@media (prefers-color-scheme: dark) {
+    body {
+        color: #eee !important;
+        background-color: black !important;
+    }
+    .box .answer-card .container {
+        background-color: #232323 !important;
+    }
+    body a  {
+        color: #809fff !important;
+    }
 }
