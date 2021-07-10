@@ -49,9 +49,13 @@ function loadQuestion() {
     setInput(q.question, q.id, q.answer1, q.answer2, q.answer3, q.answer4);
 }
 
+function logEvent(answerField) {
+    setStatus(answerField, "correct");
+}
+
 function httpGet(theUrl) {
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.open( "GET", theUrl, false);
     xmlHttp.send( null );
     return xmlHttp.responseText;
 }
@@ -87,7 +91,7 @@ function setInput(question, questionId, answer1, answer2, answer3, answer4) {
     var answer3Text = document.getElementById("answer3Text");
     var answer4Text = document.getElementById("answer4Text");
     questionText.innerHTML = question;
-    questionIdText.innerHTML = questionId;
+    questionIdText.innerHTML = "#" + convertFive(questionId);
     answer1Text.innerHTML = answer1;
     answer2Text.innerHTML = answer2;
     answer3Text.innerHTML = answer3;
@@ -111,4 +115,12 @@ function setStatus(answerField, status) {
         default:
           // code block
       }
+}
+
+function convertFive(raw) {
+    return raw.padStart(5, 0);
+}
+
+function deconvertFive(raw) {
+    return raw.toString().replace(/^0+/, '');
 }
