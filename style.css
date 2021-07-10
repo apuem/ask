@@ -65,6 +65,7 @@ text-align: left;
     transition-duration: 500ms;
     transition: 500ms;
     width: 100%;
+    background-color: #ffffff;
 }
 
 .answer-card:hover {
