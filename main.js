@@ -4,7 +4,7 @@ var answeredQuestions = JSON.stringify([0, 0, 0]);
 var questionCategory;
 var result;
 var logged;
-var points = 0;
+var points = "0";
 var cookiesAccepted;
 var questionById = false;
 
@@ -17,6 +17,10 @@ if (cookiesAccepted == !true) {
 
 if (questionCategory == "undefined") {
     questionCategory = "general";
+}
+
+if (points == "undefined") {
+    points = "0";
 }
 
 const params = new URLSearchParams(window.location.search);
@@ -58,7 +62,6 @@ function logEvent(answerField) {
 
     if (answerField == q.solution) {
         setStatus(answerField, "correct");
-        points = points + 1;
         updatePoints();
         document.getElementById("answer" + answerField).addEventListener("click", nextQuestion);
         /* switch(answerField) {
@@ -173,7 +176,22 @@ function checkUsedId() {
 
 }
 
-function updatePoints() {
+function updatePoints(value) {
+
     var pointsText = document.getElementById("pointsText");
+    points = parseInt(points, 10) + 1;
+    points = points.toString();
     pointsText.innerHTML = points + "p";
+    setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted);
+}
+
+function showCookieDialog(activator) {
+    
+    var dialog = document.getElementById("dialog");
+    if (activator == true) {
+        dialog.style.display = "block";
+    } 
+    if (activator == false) {
+        dialog.style.display = "none";
+    } 
 }
