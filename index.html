@@ -114,7 +114,36 @@
                 </nav>
             </div>
         </main>
-        <div class="main-overlay"></div>
+        <div class="main-overlay">
+            <div class="load-overlay">
+                <div class="container">
+                    <div class="row justify-content-center" style="margin-top: 25vh;">
+                        <div class="col-10 col-sm-12">
+                            <mark class="text-sm-start text-center display-3 fw-bold user-select-none">What is the highest mountain on earth?</mark>
+                            <p class="text-sm-start text-center fs-3 fw-bold"><a class="text-end" style="text-decoration: none; color: rgb(172, 172, 172);" href="#"><span id="questionIdText"><mark>#55555</mark></span></a></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-center mt-5">
+                        <div class="col-10 col-sm-12">
+                            <button id="answer1" class="answer-card mt-3 text-start p-5" onclick="logEvent(1)">
+                                <mark class="fs-3 m-5 user-select-none">Mount Everest</mark>
+                            </button>
+                            <button id="answer2" class="answer-card mt-3 text-start p-5" onclick="logEvent(2)">
+                                <mark class="fs-3 m-5 user-select-none">K2</mark>
+                            </button>
+                            <button id="answer3" class="answer-card mt-3 text-start p-5" onclick="logEvent(3)">
+                                <mark class="fs-3 m-5 user-select-none">Zugspitze</mark>
+                            </button>
+                            <button id="answer4" class="answer-card mt-3 text-start p-5" onclick="logEvent(4)">
+                                <mark class="fs-3 m-5 user-select-none">Lhotse</mark>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         
         
 
@@ -125,5 +154,6 @@
         <!-- JavaScript Bundle with Popper -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script src="main.js"></script>
+        <script src="loadScreen.js"></script>
     </body>
 </html>
