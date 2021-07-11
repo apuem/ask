@@ -23,6 +23,10 @@ if (points == "undefined") {
     points = "0";
 }
 
+setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted);
+
+loadQuestion();
+
 const params = new URLSearchParams(window.location.search);
 if (params.has("id") == true) {
     id = params.get("id");
@@ -35,10 +39,6 @@ if (params.has("logged") == true) {
 if (params.has("category") == true) {
     questionCategory = params.get("category");
 }
-
-setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted);
-
-loadQuestion();
 
 function loadQuestion() {
 
