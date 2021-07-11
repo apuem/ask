@@ -1,8 +1,10 @@
 var question;
 var questionId;
+var answeredQuestions = JSON.stringify([0, 0, 0]);
 var questionCategory;
 var result;
 var logged;
+var points = 0;
 var cookiesAccepted;
 var questionById = false;
 
@@ -10,7 +12,7 @@ getCookies();
 
 if (cookiesAccepted == !true) {
     cookiesAccepted = confirm("Agree our cookies?");
-    setCookies(questionId, questionCategory, result, logged, cookiesAccepted);
+    setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted);
 }
 
 if (questionCategory == "undefined") {
@@ -24,12 +26,13 @@ if (params.has("id") == true) {
 }
 if (params.has("logged") == true) {
     logged = params.get("logged");
+    logEvent(logged);
 }
 if (params.has("category") == true) {
     questionCategory = params.get("category");
 }
 
-setCookies(questionId, questionCategory, result, logged, cookiesAccepted);
+setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted);
 
 loadQuestion();
 
@@ -50,7 +53,33 @@ function loadQuestion() {
 }
 
 function logEvent(answerField) {
-    setStatus(answerField, "correct");
+
+    var q = JSON.parse(question);
+
+    if (answerField == q.solution) {
+        setStatus(answerField, "correct");
+        points = points + 1;
+        updatePoints();
+        document.getElementById("answer" + answerField).addEventListener("click", nextQuestion);
+        /* switch(answerField) {
+            case 1:
+                document.getElementById("answer" + answerField + "Text").innerHTML = q.answer1 + " <a href=\ 'https://www.google.com/search?q=" + q.subject + "\ '>" + "Learn more >" + "</a>";
+              break;
+            case 2:
+                document.getElementById("answer" + answerField + "Text").innerHTML = "<a href=\ 'https://www.google.com/search?q=" + q.subject + "\ '>" + q.answer2 + "</a>";
+              break;
+            case 3:
+                document.getElementById("answer" + answerField + "Text").innerHTML = "<a href=\ 'https://www.google.com/search?q=" + q.subject + "\ '>" + q.answer3 + "</a>";
+                break;
+            case 4:
+                document.getElementById("answer" + answerField + "Text").innerHTML = "<a href=\ 'https://www.google.com/search?q=" + q.subject + "\ '>" + q.answer4 + "</a>";
+                break;
+            default:
+              // code block
+          } */
+    } else {
+        setStatus(answerField, "wrong");
+    }
 }
 
 function httpGet(theUrl) {
@@ -67,19 +96,23 @@ function httpGet(theUrl) {
     getQuestionbyCategory(categoryParam)
 } */
 
-function setCookies(questionId, questionCategory, result, logged, cookiesAccepted) {
+function setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted) {
     Cookies.set('questionId', questionId);
     Cookies.set('questionCategory', questionCategory);
+    Cookies.set('answeredQuestions', answeredQuestions);
     Cookies.set('result', result);
     Cookies.set('logged', logged);
+    Cookies.set('points', points);
     Cookies.set('cookiesAccepted', cookiesAccepted);
 }
 
 function getCookies() {
     questionId = Cookies.get('questionId');
     questionCategory = Cookies.get('questionCategory');
+    answeredQuestions = Cookies.get('answeredQuestions');
     result = Cookies.get('result');
     logged = Cookies.get('logged');
+    points = Cookies.get('points');
     cookiesAccepted = Cookies.get('cookiesAccepted');
 }
 
@@ -106,7 +139,7 @@ function setStatus(answerField, status) {
           break;
         case "wrong":
             var answerFieldElement = document.getElementById("answer" + answerField);
-            answerFieldElement.style.backgroundColor = "#beffcf66";
+            answerFieldElement.style.backgroundColor = "#dc618370";
           break;
         case "deactivate":
             var answerFieldElement = document.getElementById("answer" + answerField);
@@ -123,4 +156,24 @@ function convertFive(raw) {
 
 function deconvertFive(raw) {
     return raw.toString().replace(/^0+/, '');
+}
+
+function nextQuestion() {
+    setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted);
+    window.location.href = "https://ask.apuem.com";
+}
+
+function addToAnsweredQuestions(value) {
+    var c = JSON.parse(Cookies.get('answeredQuestions'));
+    c.push(value);
+    Cookies.set('answeredQuestions', JSON.stringify(c));
+}
+
+function checkUsedId() {
+
+}
+
+function updatePoints() {
+    var pointsText = document.getElementById("pointsText");
+    pointsText.innerHTML = points + "p";
 }
