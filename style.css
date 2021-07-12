@@ -184,7 +184,9 @@ text-align: left;
 }
 
 .solutionText {
-    display: none;
+    visibility: hidden;
+    opacity: 0;
+    transition: display 0s, opacity 0.75s linear;
 }
 
 mark {

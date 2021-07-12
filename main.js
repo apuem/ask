@@ -65,25 +65,12 @@ function logEvent(answerField) {
     if (answerField == q.solution) {
         setStatus(answerField, "correct");
         updatePoints();
+        showSolutionDialog(answerField, true);
         document.getElementById("answer" + answerField).addEventListener("click", nextQuestion);
-        /* switch(answerField) {
-            case 1:
-                document.getElementById("answer" + answerField + "Text").innerHTML = q.answer1 + " <a href=\ 'https://www.google.com/search?q=" + q.subject + "\ '>" + "Learn more >" + "</a>";
-              break;
-            case 2:
-                document.getElementById("answer" + answerField + "Text").innerHTML = "<a href=\ 'https://www.google.com/search?q=" + q.subject + "\ '>" + q.answer2 + "</a>";
-              break;
-            case 3:
-                document.getElementById("answer" + answerField + "Text").innerHTML = "<a href=\ 'https://www.google.com/search?q=" + q.subject + "\ '>" + q.answer3 + "</a>";
-                break;
-            case 4:
-                document.getElementById("answer" + answerField + "Text").innerHTML = "<a href=\ 'https://www.google.com/search?q=" + q.subject + "\ '>" + q.answer4 + "</a>";
-                break;
-            default:
-              // code block
-          } */
     } else {
         setStatus(answerField, "wrong");
+        setStatus(q.solution, "correct");
+        showSolutionDialog(answerField, true);
     }
 }
 
@@ -195,5 +182,67 @@ function showCookieDialog(activator) {
     } 
     if (activator == false) {
         dialog.style.display = "none";
+    } 
+}
+
+function showSolutionDialog(solutionText, activator) {
+    var solutionText1 = document.getElementById("solutionText1");
+    var solutionText2 = document.getElementById("solutionText2");
+    var solutionText3 = document.getElementById("solutionText3");
+    var solutionText4 = document.getElementById("solutionText4");
+
+    var q = JSON.parse(question);
+
+    if (activator == true) {
+        switch(solutionText) {
+            case 1:
+                solutionText1.innerHTML = "Learn more about <a href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\"> " + q.subject + " </a> or click anywhere to continue."
+                solutionText1.style.visibility = "visible";
+                solutionText1.style.opacity = "1";
+              break;
+            case 2:
+                solutionText2.innerHTML = "Learn more about <a href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\"> " + q.subject + " </a> or click anywhere to continue."
+                solutionText2.style.visibility = "visible";
+                solutionText2.style.opacity = "1";
+              break;
+            case 3:
+                solutionText3.innerHTML = "Learn more about <a href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\"> " + q.subject + " </a> or click anywhere to continue."
+                solutionText3.style.visibility = "visible";
+                solutionText3.style.opacity = "1";
+                break;
+            case 4:
+                solutionText4.innerHTML = "Learn more about <a href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\"> " + q.subject + " </a> or click anywhere to continue."
+                solutionText4.style.visibility = "visible";
+                solutionText4.style.opacity = "1";
+                break;
+            default:
+              // code block
+          }
+    } 
+    if (activator == false) {
+        switch(solutionText) {
+            case 1:
+                solutionText1.innerHTML = "Learn more about <a href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\"> " + q.subject + " </a> or click anywhere to continue."
+                solutionText1.style.visibility = "hidden";
+                solutionText1.style.opacity = "0";
+              break;
+            case 2:
+                solutionText2.innerHTML = "Learn more about <a href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\"> " + q.subject + " </a> or click anywhere to continue."
+                solutionText2.style.visibility = "hidden";
+                solutionText2.style.opacity = "0";
+              break;
+            case 3:
+                solutionText3.innerHTML = "Learn more about <a href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\"> " + q.subject + " </a> or click anywhere to continue."
+                solutionText3.style.visibility = "hidden";
+                solutionText3.style.opacity = "0";
+                break;
+            case 4:
+                solutionText4.innerHTML = "Learn more about <a href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\"> " + q.subject + " </a> or click anywhere to continue."
+                solutionText4.style.visibility = "hidden";
+                solutionText4.style.opacity = "0";
+                break;
+            default:
+              // code block
+          }
     } 
 }
