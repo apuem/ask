@@ -27,6 +27,8 @@ setCookies(questionId, questionCategory, answeredQuestions, result, logged, poin
 
 loadQuestion();
 
+updatePoints(0);
+
 const params = new URLSearchParams(window.location.search);
 if (params.has("id") == true) {
     id = params.get("id");
@@ -85,9 +87,9 @@ function logEvent(answerField) {
     }
 }
 
-function httpGet(theUrl) {
+function httpGet(url) {
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false);
+    xmlHttp.open( "GET", url, false);
     xmlHttp.send( null );
     return xmlHttp.responseText;
 }
