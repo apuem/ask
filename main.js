@@ -5,8 +5,10 @@ var questionCategory;
 var result;
 var logged;
 var points = "0";
-var cookiesAccepted;
+var cookiesAccepted = false;
 var questionById = false;
+var q;
+
 
 getCookies();
 
@@ -24,7 +26,11 @@ if (points == "undefined") {
 }
 
 if (answeredQuestions == "undefined") {
-    answeredQuestions = JSON.stringify([0, 0, 0]);
+    answeredQuestions = JSON.stringify([0]);
+}
+
+if (questionById == "undefined") {
+    questionById = false;
 }
 
 setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted);
@@ -48,36 +54,43 @@ if (params.has("category") == true) {
 
 function loadQuestion() {
 
-    if (questionId == null) {
-        nextQuestion();
-    }
-    if (questionById == false) {
-        question = httpGet("https://ask-api.vercel.app/api/getQuestionByCategory/" + questionCategory);
-        checkForRevision();
-    } else {
+    console.log("fire loadQuestion()");
+    
+    resetStyle();
+    if (questionById == true) {
         question = httpGet("https://ask-api.vercel.app/api/getQuestionById/" + questionId);
+    } else {
+        question = httpGet("https://ask-api.vercel.app/api/getQuestionByCategory/" + questionCategory);
+        q = JSON.parse(question);
+        checkForRevision();
     }
 
-    var q = JSON.parse(question);
+    
 
     setInput(q.question, q.id, q.answer1, q.answer2, q.answer3, q.answer4);
 }
 
 function logEvent(answerField) {
 
-    var q = JSON.parse(question);
+    var clickOverlay = document.getElementById("click-overlay");
 
     if (answerField == q.solution) {
-        setStatus(answerField, "correct");
+        setStatus(answerField, "correct", true);
         updatePoints(1);
         showSolutionDialog(answerField, true);
         addToAnsweredQuestions(q.id);
-        document.body.addEventListener('click', nextQuestion, true); 
+        setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted);
+        clickOverlay.style.display = "block";
+        clickOverlay.addEventListener('click', loadQuestion, true);
 
     } else {
-        setStatus(answerField, "wrong");
-        setStatus(q.solution, "correct");
+        setStatus(answerField, "wrong", true);
+        setStatus(q.solution, "correct", true);
         showSolutionDialog(answerField, true);
+        addToAnsweredQuestions(q.id); // Wrong answeres questions will not be used again
+        setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted);
+        clickOverlay.style.display = "block";
+        clickOverlay.addEventListener('click', loadQuestion, true);
     }
 }
 
@@ -123,23 +136,44 @@ function setInput(question, questionId, answer1, answer2, answer3, answer4) {
     answer4Text.innerHTML = answer4;
 }
 
-function setStatus(answerField, status) {
-    switch(status) {
-        case "correct":
-            var answerFieldElement = document.getElementById("answer" + answerField);
-            answerFieldElement.style.backgroundColor = "#beffcf66";
-          break;
-        case "wrong":
-            var answerFieldElement = document.getElementById("answer" + answerField);
-            answerFieldElement.style.backgroundColor = "#dc618370";
-          break;
-        case "deactivate":
-            var answerFieldElement = document.getElementById("answer" + answerField);
-            answerFieldElement.classList.add = "disable";
-            break;
-        default:
-          // code block
-      }
+function setStatus(answerField, status, activator) {
+    if (activator == true) {
+        switch(status) {
+            case "correct":
+                var answerFieldElement = document.getElementById("answer" + answerField);
+                answerFieldElement.style.backgroundColor = "#beffcf66";
+              break;
+            case "wrong":
+                var answerFieldElement = document.getElementById("answer" + answerField);
+                answerFieldElement.style.backgroundColor = "#dc618370";
+              break;
+            case "deactivate":
+                var answerFieldElement = document.getElementById("answer" + answerField);
+                answerFieldElement.classList.add = "disable";
+                break;
+            default:
+              // code block
+          }
+    } 
+    if (activator == false) {
+        switch(status) {
+            case "correct":
+                var answerFieldElement = document.getElementById("answer" + answerField);
+                answerFieldElement.style.backgroundColor = "#ffffff";
+              break;
+            case "wrong":
+                var answerFieldElement = document.getElementById("answer" + answerField);
+                answerFieldElement.style.backgroundColor = "#ffffff";
+              break;
+            case "deactivate":
+                var answerFieldElement = document.getElementById("answer" + answerField);
+                answerFieldElement.classList.add = "disable";
+                break;
+            default:
+              // code block
+          }
+    } 
+    
 }
 
 function convertFive(raw) {
@@ -159,10 +193,6 @@ function addToAnsweredQuestions(value) {
     var c = JSON.parse(Cookies.get('answeredQuestions'));
     c.push(value);
     Cookies.set('answeredQuestions', JSON.stringify(c));
-}
-
-function checkUsedId() {
-
 }
 
 function updatePoints(value) {
@@ -191,27 +221,25 @@ function showSolutionDialog(solutionText, activator) {
     var solutionText3 = document.getElementById("solutionText3");
     var solutionText4 = document.getElementById("solutionText4");
 
-    var q = JSON.parse(question);
-
     if (activator == true) {
         switch(solutionText) {
             case 1:
-                solutionText1.innerHTML = "Learn more about <a href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\"> " + q.subject + " </a> or click anywhere to continue."
+                solutionText1.innerHTML = "Learn more about <a href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\" target=\"_blank\"> " + q.subject + " </a> or click anywhere to continue."
                 solutionText1.style.visibility = "visible";
                 solutionText1.style.opacity = "1";
               break;
             case 2:
-                solutionText2.innerHTML = "Learn more about <a href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\"> " + q.subject + " </a> or click anywhere to continue."
+                solutionText2.innerHTML = "Learn more about <a href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\" target=\"_blank\"> " + q.subject + " </a> or click anywhere to continue."
                 solutionText2.style.visibility = "visible";
                 solutionText2.style.opacity = "1";
               break;
             case 3:
-                solutionText3.innerHTML = "Learn more about <a href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\"> " + q.subject + " </a> or click anywhere to continue."
+                solutionText3.innerHTML = "Learn more about <a href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\" target=\"_blank\"> " + q.subject + " </a> or click anywhere to continue."
                 solutionText3.style.visibility = "visible";
                 solutionText3.style.opacity = "1";
                 break;
             case 4:
-                solutionText4.innerHTML = "Learn more about <a href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\"> " + q.subject + " </a> or click anywhere to continue."
+                solutionText4.innerHTML = "Learn more about <a href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\" target=\"_blank\"> " + q.subject + " </a> or click anywhere to continue."
                 solutionText4.style.visibility = "visible";
                 solutionText4.style.opacity = "1";
                 break;
@@ -222,22 +250,18 @@ function showSolutionDialog(solutionText, activator) {
     if (activator == false) {
         switch(solutionText) {
             case 1:
-                solutionText1.innerHTML = "Learn more about <a target=\"_blank\" href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\"> " + q.subject + " </a> or click anywhere to continue."
                 solutionText1.style.visibility = "hidden";
                 solutionText1.style.opacity = "0";
               break;
             case 2:
-                solutionText2.innerHTML = "Learn more about <a target=\"_blank\" href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\"> " + q.subject + " </a> or click anywhere to continue."
                 solutionText2.style.visibility = "hidden";
                 solutionText2.style.opacity = "0";
               break;
             case 3:
-                solutionText3.innerHTML = "Learn more about <a target=\"_blank\" href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\"> " + q.subject + " </a> or click anywhere to continue."
                 solutionText3.style.visibility = "hidden";
                 solutionText3.style.opacity = "0";
                 break;
             case 4:
-                solutionText4.innerHTML = "Learn more about <a target=\"_blank\" href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\"> " + q.subject + " </a> or click anywhere to continue."
                 solutionText4.style.visibility = "hidden";
                 solutionText4.style.opacity = "0";
                 break;
@@ -248,9 +272,20 @@ function showSolutionDialog(solutionText, activator) {
 }
 
 function checkForRevision() {
-    var q = JSON.parse(question);
     var c = JSON.parse(Cookies.get('answeredQuestions'));
     if (c.indexOf(q.id) !== -1) {
-        nextQuestion();
+        console.log("inside");
+        loadQuestion();
     }
+}
+
+function resetStyle() {
+    for (var i = 1; i < 5; i++) {
+        showSolutionDialog(i, false);
+    }
+    for (var i = 1; i < 5; i++) {
+        setStatus(i, "correct", false);
+        setStatus(i, "false", false);
+    }
+    document.getElementById("click-overlay").style.display = "none";
 }

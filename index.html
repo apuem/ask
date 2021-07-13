@@ -74,7 +74,7 @@
                         <button id="answer1" class="answer-card mt-3 text-start" onclick="logEvent(1)">
                             <p id="answer1Text" class="fs-3 m-5 user-select-none"></p>
                         </button>
-                        <h5 id="solutionText1" class="solutionText text-muted mt-4 mx-5"></h5>
+                        <h5 id="solutionText1" class="solutionText text-muted mt-4 mx-5">Learn more about <a href="#" class="link-secondary"> - </a> or click to continue.</h5>
                         <button id="answer2" class="answer-card mt-3 text-start" onclick="logEvent(2)">
                             <p id="answer2Text" class="fs-3 m-5 user-select-none"></p>
                         </button>
@@ -94,7 +94,7 @@
                 <hr class="mt-5">
                 <nav class="justify-content-center">
                     <ul class="nav" style="flex-wrap: wrap;">
-                        <li><p class="my-auto px-3 pb-3 nav-item poppins-font user-select-none">ask.apuem</p></li>
+                        <li><a class="text-decoration-none link-dark" href="./"><p class="my-auto px-3 pb-3 nav-item poppins-font user-select-none">ask.apuem</p></a></li>
                         <li>
                             <a href="about" class="my-auto px-3 pb-3 nav-item link-secondary text-decoration-none">About</a>
                         </li>
@@ -114,6 +114,7 @@
                 </nav>
             </div>
         </main>
+        <div class="click-overlay" id="click-overlay"></div>
         <div class="main-overlay">
             <div class="load-overlay">
                 <div class="container">
