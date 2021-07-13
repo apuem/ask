@@ -49,6 +49,7 @@ function loadQuestion() {
     }
     if (questionById == false) {
         question = httpGet("https://ask-api.vercel.app/api/getQuestionByCategory/" + questionCategory);
+        checkForRevision();
     } else {
         question = httpGet("https://ask-api.vercel.app/api/getQuestionById/" + questionId);
     }
@@ -245,4 +246,12 @@ function showSolutionDialog(solutionText, activator) {
               // code block
           }
     } 
+}
+
+function checkForRevision() {
+    var q = JSON.parse(question);
+    var c = JSON.parse(Cookies.get('answeredQuestions'));
+    if(c.indexOf(q.id) !== -1) {
+        nextQuestion();
+    }
 }
