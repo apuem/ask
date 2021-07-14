@@ -53,8 +53,6 @@ if (params.has("category") == true) {
 }
 
 function loadQuestion() {
-
-    console.log("fire loadQuestion()");
     
     resetStyle();
     if (questionById == true) {
@@ -192,7 +190,8 @@ function nextQuestion() {
 function addToAnsweredQuestions(value) {
     var c = JSON.parse(Cookies.get('answeredQuestions'));
     c.push(value);
-    Cookies.set('answeredQuestions', JSON.stringify(c));
+    answeredQuestions = JSON.stringify(c);
+    Cookies.set('answeredQuestions', answeredQuestions);
 }
 
 function updatePoints(value) {
@@ -274,7 +273,6 @@ function showSolutionDialog(solutionText, activator) {
 function checkForRevision() {
     var c = JSON.parse(Cookies.get('answeredQuestions'));
     if (c.indexOf(q.id) !== -1) {
-        console.log("inside");
         loadQuestion();
     }
 }
