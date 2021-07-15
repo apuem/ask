@@ -1,2 +1,2 @@
 # ask.apuem
-*New design*
+## Learn everyday something new!
