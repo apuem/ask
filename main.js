@@ -265,11 +265,11 @@ function showSolutionDialog(solutionText, activator) {
             case 1:
                 solutionText1.style.visibility = "hidden";
                 solutionText1.style.opacity = "0";
-              break;
+                break;
             case 2:
                 solutionText2.style.visibility = "hidden";
                 solutionText2.style.opacity = "0";
-              break;
+                break;
             case 3:
                 solutionText3.style.visibility = "hidden";
                 solutionText3.style.opacity = "0";
