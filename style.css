@@ -99,6 +99,10 @@ text-align: left;
         margin-top: 5vh;
     }
 
+    .solutionText {
+        display: none;
+    }
+
     }
 
     #answer1 #answer2 #answer3 #answer4 {
@@ -197,6 +201,7 @@ text-align: left;
     visibility: hidden;
     opacity: 0;
     transition: display 0s, opacity 0.75s linear;
+    z-index: -10;
 }
 
 mark {

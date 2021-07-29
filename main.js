@@ -17,7 +17,11 @@ if (cookiesAccepted == !true) {
     setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted);
 }
 
-if (questionCategory == "undefined") {
+/* if (questionCategory == "undefined") {
+    questionCategory = "general";
+} */
+
+if (typeof questionCategory === 'undefined') {
     questionCategory = "general";
 }
 
@@ -25,9 +29,14 @@ if (points == "undefined") {
     points = "0";
 }
 
-if (answeredQuestions == "undefined") {
+/* if (answeredQuestions == "undefined") {
+    answeredQuestions = JSON.stringify([0]);
+} */
+
+if (typeof answeredQuestions === 'undefined') {
     answeredQuestions = JSON.stringify([0]);
 }
+
 
 if (questionById == "undefined") {
     questionById = false;
@@ -66,6 +75,7 @@ function loadQuestion() {
     
 
     setInput(q.question, q.id, q.answer1, q.answer2, q.answer3, q.answer4);
+    window.scrollTo(0, 0);
 }
 
 function logEvent(answerField) {
@@ -225,21 +235,25 @@ function showSolutionDialog(solutionText, activator) {
             case 1:
                 solutionText1.innerHTML = "Learn more about <a href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\" target=\"_blank\"> " + q.subject + " </a> or click anywhere to continue."
                 solutionText1.style.visibility = "visible";
+                solutionText1.style.display = "block";
                 solutionText1.style.opacity = "1";
               break;
             case 2:
                 solutionText2.innerHTML = "Learn more about <a href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\" target=\"_blank\"> " + q.subject + " </a> or click anywhere to continue."
                 solutionText2.style.visibility = "visible";
+                solutionText2.style.display = "block";
                 solutionText2.style.opacity = "1";
               break;
             case 3:
                 solutionText3.innerHTML = "Learn more about <a href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\" target=\"_blank\"> " + q.subject + " </a> or click anywhere to continue."
                 solutionText3.style.visibility = "visible";
+                solutionText3.style.display = "block";
                 solutionText3.style.opacity = "1";
                 break;
             case 4:
                 solutionText4.innerHTML = "Learn more about <a href=\"https://www.google.com/search?q=" + q.subject + "\" class=\"link-secondary\" target=\"_blank\"> " + q.subject + " </a> or click anywhere to continue."
                 solutionText4.style.visibility = "visible";
+                solutionText4.style.display = "block";
                 solutionText4.style.opacity = "1";
                 break;
             default:
