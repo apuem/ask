@@ -4,18 +4,16 @@ var answeredQuestions = JSON.stringify([0, 0, 0]);
 var questionCategory;
 var result;
 var logged;
-var points = "0";
-var cookiesAccepted = false;
+var points = 0;
+var cookiesAccepted;
 var questionById = false;
 var q;
 
+console.log(points);
 
 getCookies();
 
-if (cookiesAccepted == !true) {
-    cookiesAccepted = confirm("Agree our cookies?");
-    setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted);
-}
+console.log(points);
 
 /* if (questionCategory == "undefined") {
     questionCategory = "general";
@@ -25,9 +23,15 @@ if (typeof questionCategory === 'undefined') {
     questionCategory = "general";
 }
 
-if (points == "undefined") {
-    points = "0";
+if (typeof cookiesAccepted === 'undefined') {
+    cookiesAccepted = confirm("Agree our cookies?");
 }
+
+if (isNaN(points)) {
+    points = 0;
+}
+
+console.log(points);
 
 /* if (answeredQuestions == "undefined") {
     answeredQuestions = JSON.stringify([0]);
@@ -69,6 +73,9 @@ function loadQuestion() {
     } else {
         question = httpGet("https://ask-api.vercel.app/api/getQuestionByCategory/" + questionCategory);
         q = JSON.parse(question);
+        questionId = q.id;
+        result = q.solution;
+        setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted);
         checkForRevision();
     }
 
@@ -115,7 +122,7 @@ function setCookies(questionId, questionCategory, answeredQuestions, result, log
     Cookies.set('answeredQuestions', answeredQuestions);
     Cookies.set('result', result);
     Cookies.set('logged', logged);
-    Cookies.set('points', points);
+    Cookies.set('points', points.toString());
     Cookies.set('cookiesAccepted', cookiesAccepted);
 }
 
@@ -125,7 +132,7 @@ function getCookies() {
     answeredQuestions = Cookies.get('answeredQuestions');
     result = Cookies.get('result');
     logged = Cookies.get('logged');
-    points = Cookies.get('points');
+    points = parseInt(Cookies.get('points'));
     cookiesAccepted = Cookies.get('cookiesAccepted');
 }
 

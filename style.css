@@ -117,11 +117,22 @@ text-align: left;
         color: #eee !important;
         background-color: black !important;
     }
-    .box .answer-card .container {
+    .bar {
         background-color: #232323 !important;
     }
+
+
     body a  {
         color: #809fff !important;
+    }
+
+    button, select {
+        background-color: #232323 !important;
+        color: #eee !important;
+    }
+
+    p {
+        color: #eee !important;
     }
 }
 
