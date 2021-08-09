@@ -23,9 +23,11 @@ if (typeof questionCategory === 'undefined') {
     questionCategory = "general";
 }
 
-if (typeof cookiesAccepted === 'undefined') {
+/* if (typeof cookiesAccepted === 'undefined') {
     cookiesAccepted = confirm("Agree our cookies?");
-}
+} */
+
+const CC = window.CookieConsent
 
 if (isNaN(points)) {
     points = 0;

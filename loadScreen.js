@@ -12,6 +12,13 @@ setVisible('.main-overlay', true);
 
 document.addEventListener('DOMContentLoaded', () =>
   wait(1000).then(() => {
-    setVisible('.main-container', true);
-    setVisible('.main-overlay', false);
+    if (Cookies.get('cookieconsent_status') == "allow"){
+      setSceneVisible()
+    }
+    
   }));
+
+function setSceneVisible() {
+  setVisible('.main-container', true);
+  setVisible('.main-overlay', false);
+}
