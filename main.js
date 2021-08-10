@@ -47,8 +47,6 @@ if (questionById == "undefined") {
 
 setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted);
 
-loadQuestion();
-
 updatePoints(0);
 
 const params = new URLSearchParams(window.location.search);
@@ -66,20 +64,21 @@ if (params.has("category") == true) {
     questionCategory = params.get("category");
 }
 
+loadQuestion();
+
 function loadQuestion() {
-    
     resetStyle();
     if (questionById == true) {
-        question = httpGet("https://ask-api.vercel.app/api/getQuestionById/" + questionId);
+        question = httpGet("https://ask-api.vercel.app/api/getQuestionById/" + questionId.toString());
     } else {
         question = httpGet("https://ask-api.vercel.app/api/getQuestionByCategory/" + questionCategory);
+        
+    }
         q = JSON.parse(question);
         questionId = q.id;
         result = q.solution;
         setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted);
         checkForRevision();
-    }
-
     
 
     setInput(q.question, q.id, q.answer1, q.answer2, q.answer3, q.answer4);
@@ -118,13 +117,15 @@ function httpGet(url) {
 }
 
 function setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted) {
-    Cookies.set('questionId', questionId);
-    Cookies.set('questionCategory', questionCategory);
-    Cookies.set('answeredQuestions', JSON.stringify(answeredQuestions));
-    Cookies.set('result', result);
-    Cookies.set('logged', logged);
-    Cookies.set('points', points.toString());
-    Cookies.set('cookiesAccepted', cookiesAccepted);
+    if (Cookies.get('cookieconsent_status') === "allow") {
+        Cookies.set('questionId', questionId);
+        Cookies.set('questionCategory', questionCategory);
+        Cookies.set('answeredQuestions', JSON.stringify(answeredQuestions));
+        Cookies.set('result', result);
+        Cookies.set('logged', logged);
+        Cookies.set('points', points.toString());
+        Cookies.set('cookiesAccepted', cookiesAccepted);
+    }
 }
 
 function getCookies() {
