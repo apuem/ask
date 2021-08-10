@@ -73,12 +73,16 @@ function loadQuestion() {
     } else {
         question = httpGet("https://ask-api.vercel.app/api/getQuestionByCategory/" + questionCategory);
         
+        
     }
         q = JSON.parse(question);
         questionId = q.id;
         result = q.solution;
         setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted);
-        checkForRevision();
+        if (questionById == false) {
+            checkForRevision();
+        }
+        questionById = false;
     
 
     setInput(q.question, q.id, q.answer1, q.answer2, q.answer3, q.answer4);
