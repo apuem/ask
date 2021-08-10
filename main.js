@@ -78,7 +78,9 @@ function loadQuestion() {
         questionId = q.id;
         result = q.solution;
         setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted);
-        checkForRevision();
+        if (questionById !== true) {
+            checkForRevision();
+        }
     }
 
     
