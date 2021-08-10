@@ -1,6 +1,6 @@
 var question;
 var questionId;
-var answeredQuestions = JSON.stringify([0, 0, 0]);
+var answeredQuestions;
 var questionCategory;
 var result;
 var logged;
@@ -9,11 +9,13 @@ var cookiesAccepted;
 var questionById = false;
 var q;
 
-console.log(points);
-
-getCookies();
-
-console.log(points);
+if (typeof Cookies.get('questionId') === "undefined") {
+    alert("no cookies yet");
+    setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted);
+} else{
+    alert("already cookies");
+    getCookies();
+}
 
 /* if (questionCategory == "undefined") {
     questionCategory = "general";
@@ -27,20 +29,17 @@ if (typeof questionCategory === 'undefined') {
     cookiesAccepted = confirm("Agree our cookies?");
 } */
 
-const CC = window.CookieConsent
-
 if (isNaN(points)) {
     points = 0;
 }
 
-console.log(points);
 
 /* if (answeredQuestions == "undefined") {
     answeredQuestions = JSON.stringify([0]);
 } */
 
 if (typeof answeredQuestions === 'undefined') {
-    answeredQuestions = JSON.stringify([0]);
+    answeredQuestions = JSON.stringify(["0"]);
 }
 
 
@@ -56,8 +55,10 @@ updatePoints(0);
 
 const params = new URLSearchParams(window.location.search);
 if (params.has("id") == true) {
-    id = params.get("id");
+    questionId = params.get("id");
     questionById = true;
+    console.log(questionById);
+    console.log(questionId);
 }
 if (params.has("logged") == true) {
     logged = params.get("logged");
@@ -78,9 +79,7 @@ function loadQuestion() {
         questionId = q.id;
         result = q.solution;
         setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted);
-        if (questionById !== true) {
-            checkForRevision();
-        }
+        checkForRevision();
     }
 
     
@@ -123,7 +122,7 @@ function httpGet(url) {
 function setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted) {
     Cookies.set('questionId', questionId);
     Cookies.set('questionCategory', questionCategory);
-    Cookies.set('answeredQuestions', answeredQuestions);
+    Cookies.set('answeredQuestions', JSON.stringify(answeredQuestions));
     Cookies.set('result', result);
     Cookies.set('logged', logged);
     Cookies.set('points', points.toString());
@@ -133,7 +132,7 @@ function setCookies(questionId, questionCategory, answeredQuestions, result, log
 function getCookies() {
     questionId = Cookies.get('questionId');
     questionCategory = Cookies.get('questionCategory');
-    answeredQuestions = Cookies.get('answeredQuestions');
+    answeredQuestions = JSON.parse(Cookies.get('answeredQuestions'));
     result = Cookies.get('result');
     logged = Cookies.get('logged');
     points = parseInt(Cookies.get('points'));
@@ -209,10 +208,10 @@ function nextQuestion() {
 }
 
 function addToAnsweredQuestions(value) {
-    var c = JSON.parse(Cookies.get('answeredQuestions'));
+    c = JSON.parse(answeredQuestions);
     c.push(value);
     answeredQuestions = JSON.stringify(c);
-    Cookies.set('answeredQuestions', answeredQuestions);
+    setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted);
 }
 
 function updatePoints(value) {
@@ -296,7 +295,7 @@ function showSolutionDialog(solutionText, activator) {
 }
 
 function checkForRevision() {
-    var c = JSON.parse(Cookies.get('answeredQuestions'));
+    var c = answeredQuestions;
     if (c.indexOf(q.id) !== -1) {
         loadQuestion();
     }
