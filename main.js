@@ -10,10 +10,8 @@ var questionById = false;
 var q;
 
 if (typeof Cookies.get('questionId') === "undefined") {
-    alert("no cookies yet");
     setCookies(questionId, questionCategory, answeredQuestions, result, logged, points, cookiesAccepted);
 } else{
-    alert("already cookies");
     getCookies();
 }
 
