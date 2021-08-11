@@ -56,6 +56,9 @@ if (params.has("id") == true) {
     console.log(questionById);
     console.log(questionId);
 }
+
+loadQuestion();
+
 if (params.has("logged") == true) {
     logged = params.get("logged");
     logEvent(logged);
@@ -63,8 +66,6 @@ if (params.has("logged") == true) {
 if (params.has("category") == true) {
     questionCategory = params.get("category");
 }
-
-loadQuestion();
 
 function loadQuestion() {
     resetStyle();
