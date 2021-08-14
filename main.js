@@ -23,6 +23,16 @@ if (typeof questionCategory === 'undefined') {
     questionCategory = "general";
 }
 
+const getQcSelect = () => {
+    qcSelect = document.getElementById('qcSelect');
+    questionCategory = qcSelect.value;
+    loadQuestion();
+}
+
+document.getElementById("qcSelect").onchange = getQcSelect;
+
+getQcSelect();
+
 /* if (typeof cookiesAccepted === 'undefined') {
     cookiesAccepted = confirm("Agree our cookies?");
 } */
