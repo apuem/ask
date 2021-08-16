@@ -23,7 +23,13 @@ if (typeof questionCategory === 'undefined') {
     questionCategory = "general";
 }
 
-const getQcSelect = () => {
+console.log(typeof answeredQuestions);
+if (typeof answeredQuestions === 'undefined') {
+    answeredQuestions = JSON.stringify(["0"]);
+    console.log("set");
+}
+
+function getQcSelect() {
     qcSelect = document.getElementById('qcSelect');
     questionCategory = qcSelect.value;
     loadQuestion();
@@ -45,11 +51,6 @@ if (isNaN(points)) {
 /* if (answeredQuestions == "undefined") {
     answeredQuestions = JSON.stringify([0]);
 } */
-
-if (typeof answeredQuestions === 'undefined') {
-    answeredQuestions = JSON.stringify(["0"]);
-}
-
 
 if (questionById == "undefined") {
     questionById = false;
