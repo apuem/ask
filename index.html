@@ -187,30 +187,27 @@
         var type = this.options.type;
         var didConsent = this.hasConsented();
         if (type == 'opt-in' && didConsent) {
-            alert("True");
         }
         if (type == 'opt-out' && !didConsent) {
-            alert("False");
+            window.location = "https://apuem.com";
         }
         },
         onStatusChange: function(status, chosenBefore) {
         var type = this.options.type;
         var didConsent = this.hasConsented();
         if (type == 'opt-in' && didConsent) {
-            alert("True");
         }
         if (type == 'opt-out' && !didConsent) {
-            alert("False");
+            window.location = "https://apuem.com";
         }
         },
         onRevokeChoice: function() {
         var type = this.options.type;
         if (type == 'opt-in') {
-            alert("False");
+            window.location = "https://apuem.com";
         }
         if (type == 'opt-out') {
-            alert("True");
-
+            
         }
     }});
         </script>
