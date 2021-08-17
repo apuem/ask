@@ -289,18 +289,22 @@ function showSolutionDialog(solutionText, activator) {
         switch(solutionText) {
             case 1:
                 solutionText1.style.visibility = "hidden";
+                solutionText1.style.display = "none";
                 solutionText1.style.opacity = "0";
                 break;
             case 2:
                 solutionText2.style.visibility = "hidden";
+                solutionText2.style.display = "none";
                 solutionText2.style.opacity = "0";
                 break;
             case 3:
                 solutionText3.style.visibility = "hidden";
+                solutionText3.style.display = "none";
                 solutionText3.style.opacity = "0";
                 break;
             case 4:
                 solutionText4.style.visibility = "hidden";
+                solutionText4.style.display = "none";
                 solutionText4.style.opacity = "0";
                 break;
             default:
