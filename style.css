@@ -4,6 +4,22 @@ body {
     overflow-x: hidden;
 }
 
+.preview-modal {
+    background-color: #ebebeb;
+    border-radius: 9px;
+}
+
+#close {
+    float:right;
+    font-size: 1.25rem;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+#close:hover {
+    color: #00000070;
+}
+
 .bar {
     background: #ffffff;
     box-shadow: 1px 6px 20px 3px rgba(0, 0, 0, 0.09);
