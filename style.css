@@ -128,7 +128,7 @@ text-align: left;
     }
 
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
     body {
         color: #eee !important;
         background-color: black !important;
@@ -151,7 +151,7 @@ text-align: left;
         color: #eee !important;
     }
 }
-
+ */
 .container p {
 
     -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
