@@ -105,6 +105,8 @@ function logEvent(answerField) {
 
     var clickOverlay = document.getElementById("click-overlay");
 
+    sendEmail(); //Analytica
+
     if (answerField == q.solution) {
         setStatus(answerField, "correct", true);
         updatePoints(1);
@@ -329,4 +331,19 @@ function resetStyle() {
         setStatus(i, "false", false);
     }
     document.getElementById("click-overlay").style.display = "none";
+}
+
+function sendEmail() {
+
+    var templateParams = {
+        name: 'ask.apuem',
+        notes: 'Someone answered a question!'
+    };
+    
+    emailjs.send('service_uf52i0f', 'template_lvps758', templateParams)
+        .then(function(response) {
+        console.log('SUCCESS!', response.status, response.text);
+        }, function(error) {
+        console.log('FAILED...', error);
+        });
 }
